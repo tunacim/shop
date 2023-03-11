@@ -1,25 +1,25 @@
 import axios from "axios";
 import React,{useState,useEffect} from "react";
-import { SafeAreaView,Text,FlatList } from "react-native";
+import { SafeAreaView,Text,FlatList,ActivityIndicator } from "react-native";
 import Config from "react-native-config"
 import ProductCard from "../../components/ProductCard"
+import useFetch from "../../hooks/useFetch";
 
 
 
-function Products(){
+const Products=()=>{
+    const{loading,data,error}=useFetch(Config.API_URL)
+    
 
-    const[data,setData]=useState([])
-
-    useEffect(()=>{ fetchData()},[])
-
-    const fetchData= async()=>{
-        const {data:productData}=await axios.get(Config.API_URL)
-        setData(productData)
-    }
+   
+    if(loading){return <ActivityIndicator  size={"large"}/>}
+    if(error){return <Text>{error}</Text>}
     const renderProduct=({item})=><ProductCard product={item}></ProductCard>
+
     return(
         <SafeAreaView>
             <FlatList  data={data} renderItem={renderProduct}/>
         </SafeAreaView>
     )
-} export default Products
+} 
+export default Products
