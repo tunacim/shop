@@ -6,20 +6,23 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import ProductCard from "../../components/ProductCard"
 import useFetch from "../../hooks/useFetch";
+import styles from "./Products.style"
 
 
 
-const Products=()=>{
+const Products=({navigation})=>{
     const{loading,data,error}=useFetch(Config.API_URL)
     
-
+    const handleProductSelect=id=>{
+        navigation.navigate("Detail",{id})
+    }
    
     if(loading){return <Loading />}
     if(error){return <Error></Error>}
-    const renderProduct=({item})=><ProductCard product={item}></ProductCard>
+    const renderProduct=({item})=><ProductCard product={item} onSelect={()=>handleProductSelect(item.id)}></ProductCard>
 
     return(
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <FlatList  data={data} renderItem={renderProduct}/>
         </SafeAreaView>
     )

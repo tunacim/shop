@@ -12,8 +12,10 @@ function Router(){
   return(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name ="Products" component={Products}/>
-        <Stack.Screen name ="Detail" component={Detail} />
+        <Stack.Screen name ="Products" component={Products} 
+        options={{ title:"SHOP",headerStyle:{backgroundColor:"#CCCCFF"},headerTitleStyle:{color:"black"}}}/>
+        <Stack.Screen name ="Detail" component={Detail}
+         options={{ title:"DETAİL",headerStyle:{backgroundColor:"aqua"},headerTitleStyle:{color:"black"},headerTintColor:"black"}} />
       </Stack.Navigator>
     </NavigationContainer>
   )
