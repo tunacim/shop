@@ -2,6 +2,7 @@ import React from "react";
 import {View,Image,SafeAreaView} from "react-native"
 import { Formik } from "formik";
 
+
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input";
 import styles from "./Login.style"
@@ -19,8 +20,9 @@ const Login=()=>{
         <Formik initialValues={{username:"",password:""}} onSubmit={handleLogin}>
             
             {({handleSubmit,handleChange,values})=>(<View style={styles.bodyContainer}>
-            <Input placeholder="Kullanıcı adını giriniz" value={values.username} onChangeText={handleChange("username")}></Input>
-            <Input placeholder="Şifrenizi giriniz" value={values.password} onChangeText={handleChange("password")}></Input>
+            <Input placeholder="Kullanıcı adını giriniz" value={values.username} onChangeText={handleChange("username")} iconName={"account"}></Input>
+           
+            <Input placeholder="Şifrenizi giriniz" value={values.password} onChangeText={handleChange("password")} iconName={"key"} isSecure></Input>
             <Button text="Giriş yap" onPress={handleSubmit}></Button>
             </View>)}
          </Formik>
