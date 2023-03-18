@@ -9,10 +9,13 @@ function UseFetch(url){
 
     const fetchData= async()=>{
         try {
+            setLoading(true)
             const {data:responseData}=await axios.get(url)
+            
         setData(responseData)
         setLoading(false)
         } catch (error) {
+            console.log(error)
             setError(error.message)
             setLoading(false)
         }
