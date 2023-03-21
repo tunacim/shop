@@ -1,6 +1,7 @@
 import React from "react";
 import {View,Image,SafeAreaView, Alert} from "react-native"
 import { Formik } from "formik";
+import {useDispatch,useSelector} from "react-redux"
 
 
 import Button from "../../components/Button/Button";
@@ -8,17 +9,31 @@ import Input from "../../components/Input";
 import styles from "./Login.style"
 import usePost from "../../hooks/usePost";
 
-function Login({navigation}){
+
+export default function Login(){
+    
+    const user = useSelector(s => s.user)
      const {data,post,loading,error}=usePost()
+     const dispatch=useDispatch()
+
     function handleLogin(values){
-        post("https://fakestoreapi.com/auth/login",(values))
+        post("https://fakestoreapi.com/auth/login",values)
         
     }
 
-    if(error){Alert.alert("Shop","Bir hata oluştu!!")}
+    if(error){Alert.alert("Shop","Bir hata oluştu!!"),console.log(error)}
 
-    if(data){if(data.status==="error"){Alert.alert("Shop","Kullanıcı bulunamadı!")}else{navigation.navigate("Products")}
-        console.log(data)}
+     if (data) {
+        if (data.status === "Error") {
+            Alert.alert("Shopping", "Kullanıcı Bulunamadı")}
+            else{
+             
+                dispatch({type:"SET_USER",payload:{user:JSON.stringify(user)}})
+            }
+        }
+        
+   
+       
 
     return(
         <SafeAreaView style={styles.container}>
@@ -37,4 +52,3 @@ function Login({navigation}){
         </SafeAreaView>
     )
 }
-export default Login
